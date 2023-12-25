@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Registration Page</title>
 </head>
+
 <body>
 
   <div class="container">
     <h1>Registration </h1>
 
     <!-- <h2>Registration Form</h2> -->
-    <form id="registrationForm" action="back.php" method="POST">
+    <form id="registrationForm" action="signup.php" method="POST">
       <!-- <label for="username">Username:</label> -->
       <input type="text" id="username" name="username" required placeholder="User Name">
 
@@ -46,12 +48,13 @@
             <input type="radio" id="company" name="userType" value="company">
 
           </td>
-          
+
         </tr>
       </table>
-      
 
-      <p>Already have an account? <a href="/login/login.html">Log in!</a></p> <!-- Added line with a link to the login page -->
+
+      <p>Already have an account? <a href="/login/login.html">Log in!</a></p>
+      <!-- Added line with a link to the login page -->
 
       <button type="submit" class="bn632-hover bn18">Register</button>
     </form>
@@ -61,4 +64,5 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
