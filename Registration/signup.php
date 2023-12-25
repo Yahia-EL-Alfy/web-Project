@@ -1,9 +1,17 @@
 <?php
-require_once 'db_connection.php';
+
+echo("Hello");
+
+// $con=mysql_connect("localhost","root","");
+
+// mysql_select_db("imagine_flight");
+require_once 'C:\xampp\htdocs\web-project\web-Project\backend\db_connection.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize input data
     $username = htmlspecialchars(trim($_POST['username']));
+    echo("username =" . $username);
     $email = htmlspecialchars(trim($_POST['email']));
     $tel = htmlspecialchars(trim($_POST['tel']));
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -36,4 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid Request']);
 }
+
+
+// mysql_close($con);
+
 ?>

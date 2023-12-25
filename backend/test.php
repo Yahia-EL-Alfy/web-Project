@@ -9,8 +9,7 @@ function sanitizeInput($input) {
 
 // Dummy data for testing
 $dummyData = [
-    ['John Doe', 'john@example.com', 'password123', '123456789', 'photo1.jpg', 'passport1.jpg', 100],
-    ['Jane Smith', 'jane@example.com', 'password456', '987654321', 'photo2.jpg', 'passport2.jpg', 150],
+    ['Mohamed', 'mhmd@example.com', 'password123', '123456789', 'photo1.jpg', 'passport1.jpg', 100],
     // Add more dummy data as needed
 ];
 
@@ -26,8 +25,8 @@ foreach ($dummyData as $data) {
     $passengerBalance = sanitizeInput($data[6]);
 
     // Insert data into the Passengers table
-    $query = "INSERT INTO Passengers 
-              (PassengerName, PassengerEmail, PassengerPassword, PassengerTele, PassengerPhoto, PassportImage, PassengerBalance)
+    $query = "INSERT INTO passenger 
+              (passengerName, passengerMail, PassengerPassword, phone, passengerImage, pasportImage, passengerBalance)
               VALUES 
               ('$passengerName', '$passengerEmail', '$passengerPassword', '$passengerTele', '$passengerPhoto', '$passportImage', '$passengerBalance')";
 
