@@ -1,9 +1,9 @@
 <?php
 // Replace these with your actual database credentials
-$host = "your_mysql_host";
-$user = "your_mysql_user";
-$password_db = "your_mysql_password";
-$database = "web";
+$host = "localhost";
+$user = "root";
+$password_db = "";
+$database = "imagine_flight";
 
 // Create a connection to the MySQL database
 $conn = new mysqli($host, $user, $password_db, $database);
@@ -16,16 +16,16 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["register"])) {
         // Registration API
-        $username = $_POST["username"];
-        $email = $_POST["email"];
-        $telephoneNumber = $_POST["telephoneNumber"];
-        $password = $_POST["password"];
+        $username = $_POST["PassengerName"];
+        $email = $_POST["PassengerEmail"];
+        $telephoneNumber = $_POST["PassengerTele"];
+        $password = $_POST["PassengerPassword"];
 
         // Hash the password before storing it in the database
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Prepare and execute the SQL statement for registration
-        $stmt = $conn->prepare("INSERT INTO users (username, email, telephoneNumber, password) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO passengers (PassengerName, PassengerEmail, PassengerPassword, PassengerTele) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $username, $email, $telephoneNumber, $hashedPassword);
 
         if ($stmt->execute()) {
