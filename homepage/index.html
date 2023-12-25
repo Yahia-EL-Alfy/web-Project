@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Home Page</title>
+</head>
+<body>
+
+  <div class="container">
+    <!-- <h2>Login</h2> -->
+    <h1 
+        style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;
+        justify-content: center;
+        display: flex;"> 
+        Welcome to Imagine Flights 
+    </h1>
+
+    <form 
+      id="loginForm" action="login.php" method="POST"
+      style="justify-content: center;
+      margin-top: 40px;
+      display: flex;"      
+    >
+
+      <button type="button" onclick="window.location.href='/login/login.html'">Login</button>
+      <button type="button" onclick="window.location.href='/Registration/registeration.html'">Register</button>
+
+    </form>
+    <div class="ff">
+      <p>Imagine Flights © 2023</p>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif,Comic Neue;
   margin: 0;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url('web2.jpg'); /* Replace with your background image URL */
+  background-image: url('../web2.jpg'); /* Replace with your background image URL */
   background-size: cover;
   background-position: center;
 }
@@ -47,6 +49,7 @@ button {
   cursor: pointer;
   width: 80%;
   transition: background-color 0.3s; /* Transition for background color */
+  
 }
 
 button:hover {
@@ -62,6 +65,7 @@ label[for="customer"], label[for="company"] {
 
 input[type="radio"] {
   margin-right: 5px;
+  transform: scale(5); /* You can adjust the scale factor as needed */
 }
 
 /* Media query for smaller screens */

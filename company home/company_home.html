@@ -1,0 +1,60 @@
+<!-- company_home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="company_home.css">
+  <title>Company Home</title>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <img src="../company_logo.png" alt="Company Logo">
+      
+      <h1 style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;">Imagine Flights </h1>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#">Add Flight</a></li>
+        <li><a href="#">Flights List</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Messages</a></li>
+      </ul>
+    </nav>
+
+    <section id="flightsList">
+      <!-- Display flights as a list -->
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Itinerary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Flight Row -->
+          <tr class="flightRow" data-flight-id="1">
+            <td>1</td>
+            <td>Flight 1</td>
+            <td>Itinerary 1</td>
+          </tr>
+          <!-- Add more rows dynamically from your database -->
+        </tbody>
+      </table>
+    </section>
+      <div class="ff">
+        <p>Imagine Flights © 2023</p>
+      </div>
+  </div>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- Include your script.js file -->
+  <script src="script.js"></script>
+</body>
+</html>

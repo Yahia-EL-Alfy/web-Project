@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap');
+body {
+  font-family: 'Arial', 'sans-serif', 'Comic Neue';
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url('../web2.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 600px;
+  max-height: 600px;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  
+}
+
+input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  border: 0;
+  border-radius: 5px;
+  outline: none;
+}
+
+button {
+  background-color: #2196F3;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-right: 25px;
+  transition: background-color 0.3s;
+}
+.ff{
+  justify-content: center;
+  display: flex;
+  margin-bottom: 0px;
+  color: rgba(0, 0, 0, 0.54);
+}
+button:hover {
+  background-color: #1565C0;
+}
+
+
