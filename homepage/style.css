@@ -14,7 +14,9 @@ body {
 
 .container {
   background-color: rgba(255, 255, 255, 0.5);
-  padding: 30px;
+  padding-left: 30px;
+  padding-top: 30px;
+  padding-right: 30px;
   border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -36,26 +38,51 @@ input {
   outline: none;
 }
 
-button {
-  background-color: #2196F3;
-  color: #fff;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  padding-left: 40px;
-  padding-right: 40px;
-  margin-right: 25px;
-  transition: background-color 0.3s;
-}
+
 .ff{
   justify-content: center;
   display: flex;
-  margin-bottom: 0px;
+  margin-bottom: 0;
+  margin-top: 20px;
   color: rgba(0, 0, 0, 0.54);
 }
-button:hover {
-  background-color: #1565C0;
+
+.bn632-hover {
+  width: 140px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  height: 55px;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+  border-radius: 20px;
+  margin-left: 85px;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
+.bn632-hover:hover {
+  background-position: 100% 0;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.bn632-hover:focus {
+  outline: none;
+}
+
+.bn632-hover.bn18 {
+  background-image: linear-gradient(
+    to right,
+      #25cbe1,
+      #4092e4,
+      #307bdd,
+      #2bb673
+  );
+  box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+}
 
