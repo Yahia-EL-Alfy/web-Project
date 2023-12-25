@@ -86,3 +86,21 @@ input {
   box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
 }
 
+h1 {
+  background-image: linear-gradient(
+      to right,
+      #25cbe1,
+      #4092e4,
+      #307bdd,
+      #2bb673
+  );
+  color: transparent;
+  font-family: 'Comic Neue', sans-serif;
+  justify-content: center;
+  display: flex;
+  padding: 20px;
+  text-align: center;
+  margin: 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
