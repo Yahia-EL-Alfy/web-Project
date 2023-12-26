@@ -39,10 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // header("Location: ./passenger_data.html?passengerID=$passengerID");
         // // header('Location: ./passenger_data.html');
         // exit;
-        $passengerID = mysqli_insert_id($conn);
-
-    // Redirect to HTML page with passenger ID as a parameter using JavaScript
-        echo '<script>window.location.href = "./passenger_data.html?passengerID=' . $passengerID . '";</script>';
+        $ID = mysqli_insert_id($conn);
+        if ($userType === 'customer'){
+            echo '<script>window.location.href = "./passenger_data.html?passengerID=' . $ID . '";</script>';
+        }elseif ($userType === 'company'){
+            echo '<script>window.location.href = "./company_data.html?passengerID=' . $ID . '";</script>';
+        }
+        
         exit;
     } else {
         echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
