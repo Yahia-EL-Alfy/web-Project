@@ -1,6 +1,8 @@
 <?php
 require_once '../backend/db_connection.php';
 
+session_start();
+
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -9,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Query to check if the user exists in the passenger table
-    $passengerQuery = "SELECT * FROM passenger WHERE PassengerMail = ?";
+    $passengerQuery = "SELECT * FROM passenger WHERE passengerMail = ?";
     $passengerStmt = mysqli_prepare($conn, $passengerQuery);
     mysqli_stmt_bind_param($passengerStmt, 's', $email);
     mysqli_stmt_execute($passengerStmt);
@@ -21,13 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $passengerUser = mysqli_fetch_assoc($passengerResult);
         if (password_verify($password, $passengerUser['passengerPassword'])) {
             // Store Passenger_ID in a session variable
-            session_start();
-            $_SESSION['user_id'] = $passengerUser['PassengerID'];
+            $_SESSION['user_id'] = $passengerUser['passenger_ID'];
 
             // Redirect to passenger home
-            header('Location: ../passenger home/home.html');
+            header('Location: ../passenger home/home.php');
             exit;
-            
         } else {
             // Incorrect password
             echo json_encode(['success' => false, 'error' => 'Incorrect password']);
@@ -46,11 +46,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $companyUser = mysqli_fetch_assoc($companyResult);
             if (password_verify($password, $companyUser['companyPassword'])) {
                 // Store Company_ID in a session variable
-                session_start();
-                $_SESSION['user_id'] = $companyUser['CompanyID'];
+                $_SESSION['user_id'] = $companyUser['company_ID'];
 
                 // Redirect to company home
-                header('Location: ../company home/company_home.html');
+                header('Location: ../company home/company_home.php');
                 exit;
             } else {
                 // Incorrect password
@@ -60,10 +59,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // User not found in both tables
             echo json_encode(['success' => false, 'error' => 'User not found']);
         }
+
+        // Close the company statement if it's not null
+        if ($companyStmt !== null) {
+            mysqli_stmt_close($companyStmt);
+        }
     }
 
-    mysqli_stmt_close($passengerStmt);
-    mysqli_stmt_close($companyStmt);
+    // Close the passenger statement if it's not null
+    if ($passengerStmt !== null) {
+        mysqli_stmt_close($passengerStmt);
+    }
 } else {
     // Invalid request method
     echo json_encode(['success' => false, 'error' => 'Invalid Request']);
