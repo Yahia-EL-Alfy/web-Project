@@ -1,19 +1,16 @@
 <?php
 
-echo("Hello");
-
 // $con=mysql_connect("localhost","root","");
 
 // mysql_select_db("imagine_flight");
-require_once 'C:\xampp\htdocs\web-project\web-Project\backend\db_connection.php';
+require_once '..\backend\db_connection.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize input data
-    $username = htmlspecialchars(trim($_POST['username']));
-    echo("username =" . $username);
-    $email = htmlspecialchars(trim($_POST['email']));
-    $tel = htmlspecialchars(trim($_POST['tel']));
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $tel = trim($_POST['tel']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
     $userType = $_POST['userType']; // Retrieve user type
@@ -37,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if the query was successful
     if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Registration successful']);
+        header('Location: ../login/login.html');
+        exit;
     } else {
         echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
     }
