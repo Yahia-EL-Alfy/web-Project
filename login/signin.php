@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize input data
-    $email = htmlspecialchars(trim($_POST['email']));
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
     // Query to check if the user exists in the passenger table

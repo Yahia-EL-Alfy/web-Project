@@ -31,10 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the query
     $result = mysqli_query($conn, $query);
-
+    // ../login/login.html
     // Check if the query was successful
     if ($result) {
-        header('Location: ../login/login.html');
+        // $passengerID = mysqli_insert_id($conn);
+        // // echo "<script>window.location.href = './passenger_data.html?passengerID=$passengerID';</script>";
+        // header("Location: ./passenger_data.html?passengerID=$passengerID");
+        // // header('Location: ./passenger_data.html');
+        // exit;
+        $passengerID = mysqli_insert_id($conn);
+
+    // Redirect to HTML page with passenger ID as a parameter using JavaScript
+        echo '<script>window.location.href = "./passenger_data.html?passengerID=' . $passengerID . '";</script>';
         exit;
     } else {
         echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
