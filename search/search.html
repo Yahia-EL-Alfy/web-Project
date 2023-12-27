@@ -22,10 +22,14 @@
     </form>
 
     <div id="flightsList">
-      <!-- Display list of available flights here -->
-      <p>Flight 1</p>
-      <p>Flight 2</p>
-      <p>Flight 3</p>
+      
+      <?php
+        $flights = getFlightList(); // You need to implement this function in your PHP file
+
+        foreach ($flights as $flight) {
+          echo '<a href="flight_info.php?flight_id=' . $flight['id'] . '"><p>' . $flight['name'] . '</p></a>';
+        }
+      ?>
     </div>
   </div>
 
