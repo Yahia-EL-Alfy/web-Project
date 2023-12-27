@@ -41,7 +41,7 @@ if (!isset($_SESSION['user_id'])) {
         <li><a href="#">Current Flights</a></li>
         <li><a href="#">Completed Flights</a></li>
         <li><a href="#">Search Flights</a></li>
-        <li><a href="passenger_profile.html">Profile</a></li>
+        <li><a href="passenger_profile.php">Profile</a></li>
       </ul>
     </nav>
 
