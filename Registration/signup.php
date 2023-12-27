@@ -14,6 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
     $userType = $_POST['userType']; // Retrieve user type
+    // Check if email already exists
+$emailCheckQuery = "SELECT COUNT(*) as count FROM ";
+$emailCheckQuery .= ($userType === 'customer') ? "passenger" : "company";
+$emailCheckQuery .= " WHERE ";
+$emailCheckQuery .= ($userType === 'customer') ? "PassengerMail" : "companyMail";
+$emailCheckQuery .= " = '$email'";
+
+$emailCheckResult = mysqli_query($conn, $emailCheckQuery);
+$emailCount = mysqli_fetch_assoc($emailCheckResult)['count'];
+
+if ($emailCount > 0) {
+    echo json_encode(['success' => false, 'error' => 'Email already in use']);
+    exit;
+}
+
 
     // Check user type and insert data into the appropriate table
     if ($userType === 'customer') {
@@ -22,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                   VALUES ('$username', '$email', '$tel', '$password')";
     } elseif ($userType === 'company') {
         // Insert into Companies table
-        $query = "INSERT INTO company (companyName, companyMail, companyPhone, companyPassword)
+        $query = "INSERT INTO company (companesName, companyMail, companyPhone, companyPassword)
                   VALUES ('$username', '$email', '$tel', '$password')";
     } else {
         echo json_encode(['success' => false, 'error' => 'Invalid user type']);
