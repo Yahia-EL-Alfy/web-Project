@@ -1,24 +1,46 @@
 <?php
 session_start();
 
-require_once '../backend/db_connection.php';
-
-
-$userID = $_SESSION['user_id'];
-
+// Check if the passenger is logged in
 if (!isset($_SESSION['user_id'])) {
-    // User not authenticated, redirect to login page
-    header('Location: ../login/login.html');
-    echo("<script>alert('hello')</script>");
-    exit;
+    // Redirect to the login page or handle accordingly
+    header("Location: login.php");
+    exit();
 }
 
+// Replace this with your actual database connection code
+$servername = "localhost"; 
+$username = "root";
+$password = "";
+$dbname = "imagine_flight";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch passenger details from the database using the session passenger_id
+$passengerId = $_SESSION['user_id'];
+
+$sql = "SELECT * FROM passenger WHERE passenger_ID = $passengerId";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    $passengerDetails = $result->fetch_assoc();
+} else {
+    // Handle the case where the passenger is not found
+    echo "Passenger not found!";
+    exit();
+}
+
+// Close the database connection
+$conn->close();
 
 ?>
 
-<?php 
-// echo($userID);
-?>
 
 <html lang="en">
 <head>
@@ -31,9 +53,9 @@ if (!isset($_SESSION['user_id'])) {
 
   <div class="container">
     <header>
-      <img src="../panda.png" alt="Passenger Avatar">
+      <img src='../Registration/<?php echo $passengerDetails["passengerImage"]; ?>' alt="Passenger Avatar" style="border-radius: 50%;">
       
-      <h1>Welcome, Passenger Name!</h1>
+      <h1>Welcome, <?php echo $passengerDetails['passengerName']; ?></h1>
     </header>
 
     <nav>
@@ -69,7 +91,22 @@ if (!isset($_SESSION['user_id'])) {
 
       <h2>Completed Flights</h2>
       <table>
-        <!-- Add completed flights dynamically -->
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Itinerary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Example Flight Row -->
+          <tr class="flightRow" data-flight-id="1">
+            <td>1</td>
+            <td>Flight 1</td>
+            <td>Itinerary 1</td>
+          </tr>
+          <!-- Add more rows dynamically from your database -->
+        </tbody>
       </table>
     </section>
   </div>
