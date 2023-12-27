@@ -57,9 +57,9 @@ mysqli_stmt_close($companyStmt);
 
     <form action="/submit" method="post">
       <div id="companyProfile">
-        <img src="../company_logo.png" alt="Company Logo" id="logo">
+        <img src='../Registration/<?php echo $companyData[0]["companyLogo"]; ?>' alt="Company Logo" id="logo">
         
-        <label for="companyName">Imagine Flights</label>
+        <label for="companyName"><?php echo $companyData[0]["companyName"]; ?> </label>
 
         <label for="companyBio">Bio:</label>
         <textarea id="companyBio" name="companyBio" rows="7" cols="50"><?php echo $companyData[0]["companyBio"]; ?></textarea>
