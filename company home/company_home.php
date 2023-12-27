@@ -11,6 +11,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$flightid = 1;
+
 // Query to retrieve flights for the company
 $flightsQuery = "SELECT * FROM flights WHERE company_id = ?";
 $flightsStmt = mysqli_prepare($conn, $flightsQuery);
@@ -19,6 +21,14 @@ mysqli_stmt_execute($flightsStmt);
 
 $flightsResult = mysqli_stmt_get_result($flightsStmt);
 
+
+$companyQuery = "SELECT * FROM company WHERE company_ID = ?";
+$companyStmt = mysqli_prepare($conn, $companyQuery);
+mysqli_stmt_bind_param($companyStmt, 'i', $companyID);
+mysqli_stmt_execute($companyStmt);
+
+$companyResult = mysqli_stmt_get_result($companyStmt);
+
 // Check if there are any flights
 if ($flightsResult && mysqli_num_rows($flightsResult) > 0) {
     $flightsData = mysqli_fetch_all($flightsResult, MYSQLI_ASSOC);
@@ -26,8 +36,14 @@ if ($flightsResult && mysqli_num_rows($flightsResult) > 0) {
     $flightsData = []; // No flights found
 }
 
+if ($companyResult && mysqli_num_rows($companyResult) > 0) {
+    $companyData = mysqli_fetch_all($companyResult, MYSQLI_ASSOC);
+} else {
+    $companyData = []; // No flights found
+}
 // Close the statement
 mysqli_stmt_close($flightsStmt);
+mysqli_stmt_close($companyStmt);
 ?>
 
 
@@ -43,15 +59,16 @@ mysqli_stmt_close($flightsStmt);
 
   <div class="container">
     <header>
-      <img src="../company_logo.png" alt="Company Logo">
-      
-      <h1 style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;">Imagine Flights </h1>
+      <!-- <img src="../company_logo.png" alt="Company Logo"> -->
+      <img src='../Registration/<?php echo $companyData[0]["companyLogo"]; ?>' alt="Company Logo">
+
+      <h1 style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;"><?php echo $companyData[0]["companyName"]; ?> </h1>
     </header>
 
     <nav>
       <ul>
         <li><a href="#">Add Flight</a></li>
-        <li><a href="#">Flights List</a></li>
+        <li><a href="#flightsList">Flights List</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">Messages</a></li>
       </ul>
@@ -70,7 +87,7 @@ mysqli_stmt_close($flightsStmt);
         <tbody>
           <?php foreach ($flightsData as $flight): ?>
             <tr class="flightRow" data-flight-id="<?= $flight['flight_ID']; ?>">
-              <td><?= $flight['flight_ID']; ?></td>
+              <td><?= $flightid++; ?></td>
               <td><?= $flight['flightName']; ?></td>
               <td><?= $flight['Itinerary']; ?></td>
             </tr>
