@@ -67,7 +67,7 @@ mysqli_stmt_close($companyStmt);
 
     <nav>
       <ul>
-        <li><a href="#">Add Flight</a></li>
+        <li><a href="../Add flight/addflight.html">Add Flight</a></li>
         <li><a href="#flightsList">Flights List</a></li>
         <li><a href="../company profile/company_profile.php">Profile</a></li>
         <li><a href="#">Messages</a></li>
