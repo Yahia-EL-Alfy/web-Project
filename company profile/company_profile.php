@@ -55,11 +55,13 @@ mysqli_stmt_close($companyStmt);
   <div class="container">
     <h1 style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;">About Us</h1>
 
-    <form action="/submit" method="post">
+    <form action="update_company.php" method="post">
       <div id="companyProfile">
         <img src='../Registration/<?php echo $companyData[0]["companyLogo"]; ?>' alt="Company Logo" id="logo">
-        
-        <label for="companyName"><?php echo $companyData[0]["companyName"]; ?> </label>
+
+        <label for="companyName">Company Name:</label>
+        <textarea name="companyName" id="companyName" cols="50" rows="1"><?php echo $companyData[0]["companyName"]; ?> </textarea>
+        <!-- <label for="companyName"></label> -->
 
         <label for="companyBio">Bio:</label>
         <textarea id="companyBio" name="companyBio" rows="7" cols="50"><?php echo $companyData[0]["companyBio"]; ?></textarea>
