@@ -15,8 +15,7 @@
   <div class="container">
     <header>
       <img src="../company_logo.png" alt="Company Logo">
-
-      <h1 style="color: #1c7ac7; font-family: 'Comic Neue', sans-serif;">Imagine Flights </h1>
+      <h1>Imagine Flights </h1>
     </header>
 
     <nav>
@@ -36,6 +35,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Itinerary</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -44,15 +44,21 @@
             <td>1</td>
             <td>Flight 1</td>
             <td>Itinerary 1</td>
+            <td><button class="viewDetailsBtn">View Details</button></td>
           </tr>
           <!-- Add more rows dynamically from your database -->
         </tbody>
       </table>
     </section>
+
     <div class="ff">
       <p>Imagine Flights © 2023</p>
     </div>
   </div>
+
+  <section id="flightDetails" class="hidden">
+    <!-- Flight details content goes here -->
+  </section>
 
   <!-- Include jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
