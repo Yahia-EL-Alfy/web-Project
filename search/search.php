@@ -70,7 +70,7 @@ $conn->close();
 
             // Check if From is the first element and To is the last element
             if (strcasecmp($from, $firstCity) === 0 && strcasecmp($to, $lastCity) === 0) {
-              echo '<a href="../flight info/flightinfo.html?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>';
+              echo '<a href="../flight info/flightinfo.php?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>';
             }
           }
         }
