@@ -25,7 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (mysqli_stmt_execute($insertFlightStmt)) {
         // Flight added successfully
-        echo json_encode(['success' => true]);
+        // Redirect to company home page
+        header("Location: ../company home/company_home.php");
+        exit(); // Ensure that no other code is executed after the redirect
     } else {
         // Error in adding the flight
         echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
