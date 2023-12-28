@@ -124,7 +124,13 @@ $conn->close();
               <?php foreach ($currentFlights as $flight): ?>
                   <tr class="flightRow" data-flight-id="<?php echo $flight['flight_ID']; ?>">
                       <td><?php echo $flight['flight_ID']; ?></td>
-                      <td><?php echo $flight['flightName']; ?></td>
+                      <!-- '<a href="../flight info/flightinfo.php?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>' -->
+                      <!-- <td>
+                        <?php 
+                        // echo $flight['flightName']; ?>
+                      </td> -->
+                      <td><?php echo '<a href="../flight info/reserved_flight_info.php?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>';?></td>
+
                       <td><?php echo $flight['Itinerary']; ?></td>
                   </tr>
               <?php endforeach; ?>
@@ -144,7 +150,9 @@ $conn->close();
               <?php foreach ($completedFlights as $flight): ?>
                   <tr class="flightRow" data-flight-id="<?php echo $flight['flight_ID']; ?>">
                       <td><?php echo $flight['flight_ID']; ?></td>
-                      <td><?php echo $flight['flightName']; ?></td>
+                      <!-- <td><?php
+                      //  echo $flight['flightName']; ?></td> -->
+                      <td><?php echo '<a href="../flight info/reserved_flight_info.php?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>';?></td>
                       <td><?php echo $flight['Itinerary']; ?></td>
                   </tr>
               <?php endforeach; ?>
