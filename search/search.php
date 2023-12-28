@@ -1,3 +1,40 @@
+<?php
+// Replace this with your database connection logic
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "imagine_flight";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user input values
+    $from = $_POST['from'];
+    $to = $_POST['to'];
+
+    // Replace this with your actual query to get the filtered flight list
+    $query = "SELECT * FROM flights WHERE Itinerary LIKE '%$from%' AND Itinerary LIKE '%$to%'";
+    $result = $conn->query($query);
+
+    $flights = [];
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $flights[] = $row;
+        }
+    } else {
+        echo "No flights found.";
+    }
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,12 +59,20 @@
     </form>
 
     <div id="flightsList">
-      
+     
       <?php
-        $flights = getFlightList(); // You need to implement this function in your PHP file
+        if (!empty($flights)) {
+          foreach ($flights as $flight) {
+            // Explode the itinerary and trim to remove extra spaces
+            $itineraryCities = array_map('trim', explode(',', $flight['Itinerary']));
+            $firstCity = reset($itineraryCities);
+            $lastCity = end($itineraryCities);
 
-        foreach ($flights as $flight) {
-          echo '<a href="flight_info.php?flight_id=' . $flight['id'] . '"><p>' . $flight['name'] . '</p></a>';
+            // Check if From is the first element and To is the last element
+            if (strcasecmp($from, $firstCity) === 0 && strcasecmp($to, $lastCity) === 0) {
+              echo '<a href="../flight info/flightinfo.html?flight_id=' . $flight['flight_ID'] . '"><p>' . $flight['flightName'] . '</p></a>';
+            }
+          }
         }
       ?>
     </div>
