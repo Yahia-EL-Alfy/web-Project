@@ -104,7 +104,7 @@ $conn->close();
       <ul>
         <li><a href="#">Current Flights</a></li>
         <li><a href="#">Completed Flights</a></li>
-        <li><a href="../search/search.html">Search Flights</a></li>
+        <li><a href="../search/search.php">Search Flights</a></li>
         <li><a href="passenger_profile.php">Profile</a></li>
       </ul>
     </nav>
