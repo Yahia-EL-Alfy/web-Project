@@ -14,7 +14,6 @@ require_once '..\backend\db_connection.php';
 $getPassengerIDQuery = "SELECT passenger_ID FROM passenger ORDER BY passenger_ID DESC LIMIT 1";
 $getPassengerIDResult = mysqli_query($conn, $getPassengerIDQuery);
 
-// Check if the query was successful
 if ($getPassengerIDResult) {
     $row = mysqli_fetch_assoc($getPassengerIDResult);
     $passengerID = $row['passenger_ID'];
@@ -28,7 +27,6 @@ if ($passengerID === null) {
     exit;
 }
 
-// Check if the passenger ID is not provided
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
@@ -37,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passportImage = $_FILES['passportImage'];
     $accountBalance = $_POST['accountBalance'];
 
-    // Check user type (assuming 'customer' for passengers)
     if ($userType === 'customer') {
         // Handle file upload for passenger image
         $targetDir = "uploads/";
@@ -45,11 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $passengerImagePath = $targetDir . $passengerImageName;
 
         if (move_uploaded_file($passengerImage["tmp_name"], $passengerImagePath)) {
-            // Update the passenger record with the passenger image path
             $updatePassengerImageQuery = "UPDATE passenger SET passengerImage = '$passengerImagePath' WHERE passenger_ID = $passengerID";
             $updatePassengerImageResult = mysqli_query($conn, $updatePassengerImageQuery);
 
-            // Check if the update was successful
             if (!$updatePassengerImageResult) {
                 echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
                 exit;
@@ -59,16 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Handle file upload for passport image
         $passportImageName = basename($passportImage["name"]);
         $passportImagePath = $targetDir . $passportImageName;
 
         if (move_uploaded_file($passportImage["tmp_name"], $passportImagePath)) {
-            // Update the passenger record with the passport image path
             $updatePassportImageQuery = "UPDATE passenger SET pasportImage = '$passportImagePath' WHERE passenger_ID = $passengerID";
             $updatePassportImageResult = mysqli_query($conn, $updatePassportImageQuery);
 
-            // Check if the update was successful
             if (!$updatePassportImageResult) {
                 echo json_encode(['success' => false, 'error' => mysqli_error($conn)]);
                 exit;

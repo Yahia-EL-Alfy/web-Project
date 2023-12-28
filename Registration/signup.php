@@ -7,22 +7,21 @@ require_once '..\backend\db_connection.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sanitize input data
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $tel = trim($_POST['tel']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $confirmPassword = password_hash($_POST['confirmPassword'], PASSWORD_DEFAULT);
-    $userType = $_POST['userType']; // Retrieve user type
+    $userType = $_POST['userType']; 
     // Check if email already exists
-$emailCheckQuery = "SELECT COUNT(*) as count FROM ";
-$emailCheckQuery .= ($userType === 'customer') ? "passenger" : "company";
-$emailCheckQuery .= " WHERE ";
-$emailCheckQuery .= ($userType === 'customer') ? "PassengerMail" : "companyMail";
-$emailCheckQuery .= " = '$email'";
+    $emailCheckQuery = "SELECT COUNT(*) as count FROM ";
+    $emailCheckQuery .= ($userType === 'customer') ? "passenger" : "company";
+    $emailCheckQuery .= " WHERE ";
+    $emailCheckQuery .= ($userType === 'customer') ? "PassengerMail" : "companyMail";
+    $emailCheckQuery .= " = '$email'";
 
-$emailCheckResult = mysqli_query($conn, $emailCheckQuery);
-$emailCount = mysqli_fetch_assoc($emailCheckResult)['count'];
+    $emailCheckResult = mysqli_query($conn, $emailCheckQuery);
+    $emailCount = mysqli_fetch_assoc($emailCheckResult)['count'];
 
 if ($emailCount > 0) {
     echo json_encode(['success' => false, 'error' => 'Email already in use']);
@@ -30,13 +29,10 @@ if ($emailCount > 0) {
 }
 
 
-    // Check user type and insert data into the appropriate table
     if ($userType === 'customer') {
-        // Insert into Passengers table
         $query = "INSERT INTO passenger (PassengerName, PassengerMail, phone, PassengerPassword)
                   VALUES ('$username', '$email', '$tel', '$password')";
     } elseif ($userType === 'company') {
-        // Insert into Companies table
         $query = "INSERT INTO company (companesName, companyMail, companyPhone, companyPassword)
                   VALUES ('$username', '$email', '$tel', '$password')";
     } else {
@@ -44,10 +40,8 @@ if ($emailCount > 0) {
         exit;
     }
 
-    // Execute the query
     $result = mysqli_query($conn, $query);
     // ../login/login.html
-    // Check if the query was successful
     if ($result) {
         // $passengerID = mysqli_insert_id($conn);
         // // echo "<script>window.location.href = './passenger_data.html?passengerID=$passengerID';</script>";

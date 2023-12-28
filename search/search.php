@@ -1,5 +1,4 @@
 <?php
-// Replace this with your database connection logic
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -11,13 +10,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get user input values
     $from = $_POST['from'];
     $to = $_POST['to'];
 
-    // Replace this with your actual query to get the filtered flight list
     $query = "SELECT * FROM flights WHERE Itinerary LIKE '%$from%' AND Itinerary LIKE '%$to%'";
     $result = $conn->query($query);
 
@@ -63,7 +59,6 @@ $conn->close();
       <?php
         if (!empty($flights)) {
           foreach ($flights as $flight) {
-            // Explode the itinerary and trim to remove extra spaces
             $itineraryCities = array_map('trim', explode(',', $flight['Itinerary']));
             $firstCity = reset($itineraryCities);
             $lastCity = end($itineraryCities);
