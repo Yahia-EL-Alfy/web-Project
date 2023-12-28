@@ -60,21 +60,36 @@ if (isset($_GET['flight_id'])) {
 
     <div id="takeItOption">
       <p>Take it?</p>
-      <button class="bn632-hover bn18">Pay from Account</button>
-      <button class="bn632-hover bn18">Cash</button>
-      <button class="bn632-hover bn18">Message Us</button>
+      <button id="payFromAccountButton" class="bn632-hover bn18">Pay from Account</button>
     </div>
+
+
+    <!-- <div id="takeItOption">
+        <form method="post" action="reserve.php">
+
+
+        <input type="hidden" name="flight_id" value="<?php echo $flightId; ?>">
+
+        <p>Take it?</p>
+        <button type="submit" class="bn632-hover bn18" name="pay_from_account">Pay from Account</button>
+        <button class="bn632-hover bn18">Cash</button>
+        <button class="bn632-hover bn18">Message Us</button>
+        </form>
+    </div> -->
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var messageUsButton = document.querySelector('#takeItOption .bn632-hover.bn18:last-child'); // Select the last button (Message Us)
+      var payFromAccountButton = document.getElementById('payFromAccountButton');
 
-      messageUsButton.addEventListener('click', function() {
-        window.open('/message/message.html', '_blank');
+      payFromAccountButton.addEventListener('click', function() {
+        // Redirect to the payment PHP page with flight_id as a query parameter
+        var flightId = '<?php
+         echo $flightId; ?>';
+        window.location.href = 'reserve.php?flight_id=' + flightId;
       });
     });
-  </script>
+        </script>
 
 </body>
 </html>
