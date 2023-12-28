@@ -1,4 +1,5 @@
 <?php
+// Assuming you have started a session, and the passenger information is stored in the session upon login
 session_start();
 
 // Check if the passenger is logged in
@@ -9,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Replace this with your actual database connection code
-$servername = "localhost"; 
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "imagine_flight";
@@ -22,25 +23,66 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch passenger details from the database using the session passenger_id
+// Fetch passenger ID from the session
 $passengerId = $_SESSION['user_id'];
+// Use the provided SQL query to get the details of the reserved flight
+$flightDetails = [];
 
-$sql = "SELECT * FROM passenger WHERE passenger_ID = $passengerId";
+$sql = "SELECT flights.* FROM flights JOIN passenger_flights ON flights.flight_ID = passenger_flights.flight_ID WHERE passenger_flights.passenger_id = $passengerId";
+
 $result = $conn->query($sql);
 
+$currentFlights = [];
+$completedFlights = [];
+
 if ($result->num_rows > 0) {
-    $passengerDetails = $result->fetch_assoc();
+  $flightDetails = $result->fetch_assoc();
+
+  // while ($row = $result->fetch_assoc()) {
+  //   if ($flightDetails['complited'] == 0) {
+  //     $currentFlights[] = $flightDetails;
+  //   }   else {
+  //       $completedFlights[] = $flightDetails;
+  //   }
+  // }
+  $currentFlights = [];
+  $completedFlights = [];
+
+  // Reset the result pointer to the beginning
+  $result->data_seek(0);
+
+  while ($row = $result->fetch_assoc()) {
+      if ($row['complited'] == 0) {
+          $currentFlights[] = $row;
+      } else {
+          $completedFlights[] = $row;
+      }
+  }
+}
+
+// echo(count($currentFlights));
+
+
+$passengerDetails = [];
+
+$sqlPassenger = "SELECT * FROM passenger WHERE passenger_ID = $passengerId";
+$resultPassenger = $conn->query($sqlPassenger);
+
+if ($resultPassenger->num_rows > 0) {
+    $passengerDetails = $resultPassenger->fetch_assoc();
 } else {
     // Handle the case where the passenger is not found
     echo "Passenger not found!";
     exit();
 }
 
+
+
 // Close the database connection
 $conn->close();
-
 ?>
 
+<!-- SELECT flights.* FROM flights JOIN passenger_flights ON flights.flight_ID = passenger_flights.flight_ID WHERE passenger_flights.passenger_id = 33; -->
 
 <html lang="en">
 <head>
@@ -62,7 +104,7 @@ $conn->close();
       <ul>
         <li><a href="#">Current Flights</a></li>
         <li><a href="#">Completed Flights</a></li>
-        <li><a href="#">Search Flights</a></li>
+        <li><a href="../search/search.html">Search Flights</a></li>
         <li><a href="passenger_profile.php">Profile</a></li>
       </ul>
     </nav>
@@ -71,42 +113,42 @@ $conn->close();
       <!-- Display flights as a list -->
       <h2>Current Flights</h2>
       <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Itinerary</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Example Flight Row -->
-          <tr class="flightRow" data-flight-id="1">
-            <td>1</td>
-            <td>Flight 1</td>
-            <td>Itinerary 1</td>
-          </tr>
-          <!-- Add more rows dynamically from your database -->
-        </tbody>
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Itinerary</th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php foreach ($currentFlights as $flight): ?>
+                  <tr class="flightRow" data-flight-id="<?php echo $flight['flight_ID']; ?>">
+                      <td><?php echo $flight['flight_ID']; ?></td>
+                      <td><?php echo $flight['flightName']; ?></td>
+                      <td><?php echo $flight['Itinerary']; ?></td>
+                  </tr>
+              <?php endforeach; ?>
+          </tbody>
       </table>
 
       <h2>Completed Flights</h2>
       <table>
-      <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Itinerary</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Example Flight Row -->
-          <tr class="flightRow" data-flight-id="1">
-            <td>1</td>
-            <td>Flight 1</td>
-            <td>Itinerary 1</td>
-          </tr>
-          <!-- Add more rows dynamically from your database -->
-        </tbody>
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Itinerary</th>
+              </tr>
+          </thead>
+          <tbody>
+              <?php foreach ($completedFlights as $flight): ?>
+                  <tr class="flightRow" data-flight-id="<?php echo $flight['flight_ID']; ?>">
+                      <td><?php echo $flight['flight_ID']; ?></td>
+                      <td><?php echo $flight['flightName']; ?></td>
+                      <td><?php echo $flight['Itinerary']; ?></td>
+                  </tr>
+              <?php endforeach; ?>
+          </tbody>
       </table>
     </section>
   </div>

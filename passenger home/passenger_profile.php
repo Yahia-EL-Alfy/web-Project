@@ -57,10 +57,13 @@ $conn->close();
     </div>
     <h2>Welcome, <?php echo $passengerDetails['passengerName']; ?></h2>
 
-    <label for="passportimage">Passport Image: </label>
-    <div class = "user-icon">
-        <img id="passport-image" src='../Registration/<?php echo $passengerDetails['pasportImage']; ?>' alt="Passport Image">
+    <div class="passportdiv">
+        <label for="passportimage">Passport Image: </label>
+
+        <img src='../Registration/<?php echo $passengerDetails['pasportImage']; ?>' alt="Passport Image" style="height: 90px; width: 90px;">
     </div>
+
+    
 
     <form method="POST" action="update_passenger_profile.php">
         <label for="newUsername">Username:</label>

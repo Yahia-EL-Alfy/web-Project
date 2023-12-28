@@ -40,14 +40,6 @@ body {
     margin-left: 125px;
 }
 
-#passport-image {
-    max-width: 90px;
-    max-height: 90px;
-    /* Adjust the max-width and max-height to your desired size for a square image */
-    margin-left: 125px;
-    /* Adjust the margin-left to position it as needed */
-}
-
 h2 {
     display: block;
     margin-bottom: 20px;
