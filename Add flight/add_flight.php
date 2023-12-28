@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $flightName = $_POST['name'];
     // $flightID = $_POST['id'];
     $itinerary = $_POST['itinerary'];
+    $date= $_POST['departureDate'];
     $fees = $_POST['fees'];
     $numPassengers = $_POST['passengers'];
     $takeoffTime = $_POST['takeoff'];
@@ -16,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $companyID = $_SESSION['user_id'];
 
     // Insert data into the flights table
-    $insertFlightQuery = "INSERT INTO `flights` (flightName, Itinerary, fees, maxPassegers, startTime, endTime, company_id)
-                          VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $insertFlightQuery = "INSERT INTO `flights` (flightName, Itinerary, fees, maxPassegers, startTime, endTime, company_id, `date`)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $insertFlightStmt = mysqli_prepare($conn, $insertFlightQuery);
 
-    // Assuming maxPassegers is an integer, adjust the 'ssi' accordingly
-    mysqli_stmt_bind_param($insertFlightStmt, 'ssdissi', $flightName, $itinerary, $fees, $numPassengers, $takeoffTime, $landingTime, $companyID);
+    // Assuming maxPassegers is an integer, adjust the 'ssdissis' accordingly
+    mysqli_stmt_bind_param($insertFlightStmt, 'ssdissis', $flightName, $itinerary, $fees, $numPassengers, $takeoffTime, $landingTime, $companyID, $date);
 
     if (mysqli_stmt_execute($insertFlightStmt)) {
         // Flight added successfully
