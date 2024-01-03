@@ -106,3 +106,4 @@ mysqli_stmt_close($companyStmt);
   <script src="script.js"></script>
 </body>
 </html>
+
